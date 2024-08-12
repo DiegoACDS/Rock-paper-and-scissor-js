@@ -11,10 +11,9 @@ function getComputerChoice() {
 // get user choice
 function getUserChoice() {
     const user = prompt('Type your choice, Rock, Paper, Scissor').toLocaleLowerCase()
-    const validChoice = choices
-    // verifica a entrada
-    if(user === null || !validChoice.includes(user)){
-        alert("please enter a valid choice")
+    //verifica se a entrada é valida
+    while (!choices.includes(user)){
+        user = prompt('Type your choice, Rock, Paper, Scissor').toLocaleLowerCase()
     }
     return user
 }
@@ -25,14 +24,20 @@ function startGame() {
     const computer = getComputerChoice()
     const user = getUserChoice() 
 
+    console.log(`you chose ${user}. And the computer chose ${computer}.`)
+
     if( user == "rock" && computer == "scissor" ||
         user == "paper" && computer == "rock" ||
         user == "scissor" && computer == "paper" 
      ){
-       return humanScore++
-     }else {
-        return computerScore++
-     }
+        console.log('You win this Round!')
+        humanScore++
+     } else if (user === computer ) {
+        console.log('It\'s a tie!')
+     } else {
+        console.log('Computer wins this Round.')
+        computerScore++
+     } 
 }
 
 // playing rounds
@@ -41,22 +46,19 @@ function playRound() {
     let round = 0
     while (round < 5) {
         startGame()
-        if( humanScore > computerScore){
-            console.log(`you win `)
-        }
-        else if(humanScore === computerScore){
-            console.log("DRAW GAME")
-        }
-        else if (humanScore < computerScore){
-            console.log("xablau" )
-        }
-        round ++
-        if(round == 5) {
-            console.log(`THE FINAL RESULT IS
-                HUMAN - ${humanScore}
-                COMPUTER - ${computerScore}`)
-        }
+        round++
+    }
+    if(humanScore > computerScore) {
+        console.log('You win the game')
+    } else if (humanScore < computerScore) {
+        console.log('You lose the game')
+    } else {
+        console.log('The game is a draw')
+    }
+    if (round = 5 ) {
+        console.log(`THE FINAL RESULT\n HUMAN ${humanScore}\n COMPUTER ${computerScore}`)
     }
 }
-
+humanScore = 0
+computerScore = 0
 playRound()
