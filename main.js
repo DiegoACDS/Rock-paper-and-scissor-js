@@ -39,7 +39,7 @@ function startGame() {
 
 function playRound() {
     let round = 0
-    while (round < 3) {
+    while (round < 5) {
         startGame()
         if( humanScore > computerScore){
             console.log(`you win `)
@@ -51,7 +51,12 @@ function playRound() {
             console.log("xablau" )
         }
         round ++
+        if(round == 5) {
+            console.log(`THE FINAL RESULT IS
+                HUMAN - ${humanScore}
+                COMPUTER - ${computerScore}`)
+        }
     }
 }
-playRound()
 
+playRound()
