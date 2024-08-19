@@ -1,64 +1,69 @@
 // generate computer choice
 const choices = ['rock', 'paper', 'scissor']
+
 let humanScore = 0 
 let computerScore = 0
+let round = 0
 
 function getComputerChoice() {
     const getNumber = Math.floor(Math.random() * choices.length)
     return choices[getNumber]
 
 }
-// get user choice
-function getUserChoice() {
-    const user = prompt('Type your choice, Rock, Paper, Scissor').toLocaleLowerCase()
-    //verifica se a entrada é valida
-    while (!choices.includes(user)){
-        user = prompt('Type your choice, Rock, Paper, Scissor').toLocaleLowerCase()
-    }
-    return user
-}
 
 // start game
 
-function startGame() {
+function startGame(userChoice) {
+
     const computer = getComputerChoice()
-    const user = getUserChoice() 
 
-    console.log(`you chose ${user}. And the computer chose ${computer}.`)
+    console.log(`you chose ${userChoice}. And the computer chose ${computer}.`)
 
-    if( user == "rock" && computer == "scissor" ||
-        user == "paper" && computer == "rock" ||
-        user == "scissor" && computer == "paper" 
+    if( userChoice == "rock" && computer == "scissor" ||
+        userChoice == "paper" && computer == "rock" ||
+        userChoice == "scissor" && computer == "paper" 
      ){
         console.log('You win this Round!')
         humanScore++
-     } else if (user === computer ) {
+     } else if (userChoice === computer ) {
         console.log('It\'s a tie!')
      } else {
         console.log('Computer wins this Round.')
         computerScore++
      } 
-}
+     
+    round++
 
-// playing rounds
-
-function playRound() {
-    let round = 0
-    while (round < 5) {
-        startGame()
-        round++
-    }
-    if(humanScore > computerScore) {
-        console.log('You win the game')
-    } else if (humanScore < computerScore) {
-        console.log('You lose the game')
-    } else {
-        console.log('The game is a draw')
-    }
-    if (round = 5 ) {
+    // playing rounds
+     if (round >=5) {
         console.log(`THE FINAL RESULT\n HUMAN ${humanScore}\n COMPUTER ${computerScore}`)
-    }
+        if (humanScore > computerScore) {
+            console.log('You win the game!')
+        } else if (humanScore < computerScore) {
+            console.log('You lose the game.')
+        } else {
+            console.log('The game is a draw.')
+        }
+
+        // Reseta os Placares para um novo jogo
+        humanScore = 0
+        computerScore = 0
+        round = 0
+
+     }  
 }
-humanScore = 0
-computerScore = 0
-playRound()
+// btn user choices
+const btns = document.querySelectorAll('.btn')
+btns.forEach(function (btn) {
+    btn.addEventListener('click', function() {
+        const userChoice = btn.getAttribute('data-choice')
+        startGame(userChoice)
+    })
+})
+
+
+
+
+
+
+
